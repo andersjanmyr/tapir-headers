@@ -1,23 +1,21 @@
-import defaultRules from "./default-rules.js";
+import Config from "./config.js";
 
 chrome.storage.local
-  .get()
-  .then((config) => {
-    console.log("config", config);
-    let rules;
-    if (config) {
+  .get("config")
+  .then((data) => {
+    const config = new Config();
+    console.log(data, data.config);
+    if (data.config) {
       try {
-        rules = JSON.parse(config.rules);
+        config.initFromJSON(data.config);
       } catch (err) {
         console.log(err);
       }
     }
-    if (!rules) {
-      rules = defaultRules;
-    }
 
-    chrome.storage.local.set({ rules: JSON.stringify(rules) });
+    chrome.storage.local.set({ config: config.toJSON() });
 
+    const rules = config.toRules();
     chrome.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: rules.map((rule) => rule.id),
       addRules: rules,

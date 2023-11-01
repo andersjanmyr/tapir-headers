@@ -1,0 +1,28 @@
+{
+  "name": "tapir-headers",
+  "version": "0.0.1",
+  "description": "Tapir Headers allow manipulation of request and response headers",
+  "main": "config.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha *_test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersjanmyr/tapir-headers.git"
+  },
+  "keywords": [
+    "headers",
+    "chrome",
+    "extension"
+  ],
+  "author": "anders@janmyr.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andersjanmyr/tapir-headers/issues"
+  },
+  "homepage": "https://github.com/andersjanmyr/tapir-headers#readme",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
+}

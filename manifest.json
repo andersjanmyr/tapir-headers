@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "description": "Tapir Headers allow manipulation of request and response headers",
   "homepage_url": "https://github.com/andersjanmyr/tapir-headers",
-  "default_locale": "en",
   "icons": {
     "16": "icons/tapir-16.png",
     "32": "icons/tapir-32.png",
@@ -19,10 +18,10 @@
   },
   "action": {
     "default_icon": {
-      "16": "images/icon-16.png",
-      "32": "images/icon-32.png",
-      "48": "images/icon-48.png",
-      "128": "images/icon-128.png"
+      "16": "icons/tapir-16.png",
+      "32": "icons/tapir-32.png",
+      "48": "icons/tapir-48.png",
+      "128": "icons/tapir-128.png"
     }
   }
 }

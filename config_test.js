@@ -15,6 +15,7 @@ describe("Config", function () {
                 value: "x-value",
               },
             ],
+            responseHeaders: [],
             type: "modifyHeaders",
           },
           condition: {

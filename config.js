@@ -25,14 +25,17 @@ const defaultConfig = {
       url: {
         pattern: "*",
         type: "url", // url, regex
+        comment: "All sites",
       },
-      headers: [
+      requestHeaders: [
         {
-          op: "set", // append, set, remove
+          op: "set", // set, remove
           header: "x-header",
           value: "x-value",
+          comment: "possible values: x-value",
         },
       ],
+      responseHeaders: [],
     },
   ],
 };
@@ -55,14 +58,29 @@ export default class Config {
   }
 
   toRules() {
-    const rules = [];
-    this.data.urlHeaders.forEach((urlHeader) => {
-      const condition = this.toCondition(urlHeader.url);
-      urlHeader.headers.forEach((header) => {
-        rules.push(this.toRule(header, condition));
-      });
-    });
-    return rules;
+    return this.data.urlHeaders.map(this.toRule, this);
+  }
+
+  toRule(urlHeader) {
+    const condition = this.toCondition(urlHeader.url);
+    return {
+      id: 1,
+      priority: 1,
+      action: {
+        type: "modifyHeaders",
+        requestHeaders: this.toHeaders(urlHeader.requestHeaders),
+        responseHeaders: this.toHeaders(urlHeader.responseHeaders),
+      },
+      condition,
+    };
+  }
+
+  toHeaders(headers) {
+    return headers.map((h) => ({
+      operation: h.op,
+      header: h.header,
+      value: h.value,
+    }));
   }
 
   toCondition({ pattern, type }) {
@@ -75,23 +93,5 @@ export default class Config {
       condition["regexFilter"] = pattern;
     }
     return condition;
-  }
-
-  toRule(headers, condition) {
-    return {
-      id: 1,
-      priority: 1,
-      action: {
-        type: "modifyHeaders",
-        requestHeaders: [
-          {
-            operation: headers.op,
-            header: headers.header,
-            value: headers.value,
-          },
-        ],
-      },
-      condition,
-    };
   }
 }

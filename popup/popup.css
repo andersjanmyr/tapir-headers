@@ -1,0 +1,9 @@
+body {
+    width: 132px;
+}
+
+input {
+   display: block;
+    width: 128px;
+    height: 32px;
+}
